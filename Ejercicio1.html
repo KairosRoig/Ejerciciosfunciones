@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <button onclick="recolectarPalabras()">Comenzar</button>
+    <div id="resultado"></div>
+
+    <script>
+        const recolectarPalabras = () => {
+            let palabras = new Set();
+            let palabra;
+            while (true) {
+                palabra = prompt("Introduce una palabra (deja vacío o cancela para terminar):");
+                if (palabra === null || palabra.trim() === "") break; 
+                palabras.add(palabra.toLowerCase()); 
+            }
+            const resultado = [...palabras]
+                .sort((a, b) => b.localeCompare(a, 'es'));
+            document.getElementById("resultado").innerHTML = `<p><strong>Palabras ordenadas de Z a A:</strong> ${resultado.join(", ")}</p>`;
+        };
+    </script>
+</body>
+</html>

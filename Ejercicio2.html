@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <button onclick="procesarPalabrasSinDuplicados()">Eliminar duplicados y ordenar (Z a A)</button>
+    <button onclick="contarOcurrencias()">Contar ocurrencias de palabras</button>
+    <div id="resultado"></div>
+
+    <script>
+        const pedirPalabras = () => {
+            let palabras = [];
+            let palabra;
+            while (true) {
+                palabra = prompt("Introduce una palabra (deja vacío o cancela para terminar):");
+                if (palabra === null || palabra.trim() === "") break; 
+                palabras.push(palabra.toLowerCase());
+            }
+            return palabras;
+        };
+
+        const mostrarResultado = (mensaje) => {
+            document.getElementById("resultado").innerHTML = `<p><strong>Resultado:</strong> ${mensaje}</p>`;
+        };
+
+        const procesarPalabrasSinDuplicados = () => {
+            let palabras = pedirPalabras();
+            let palabrasUnicas = [...new Set(palabras)]
+                .sort((a, b) => b.localeCompare(a, 'es'));
+
+            mostrarResultado(palabrasUnicas.join(", "));
+        };
+        const contarOcurrencias = () => {
+            let palabras = pedirPalabras();
+            let mapaOcurrencias = new Map();
+
+            palabras.forEach(palabra => {
+                mapaOcurrencias.set(palabra, (mapaOcurrencias.get(palabra) || 0) + 1);
+            });
+            let resultado = Array.from(mapaOcurrencias)
+                .map(([palabra, cuenta]) => `${palabra}: ${cuenta}`)
+                .join(", ");
+
+            mostrarResultado(resultado);
+        };
+    </script>
+</body>
+</html>
